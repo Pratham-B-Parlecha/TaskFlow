@@ -1,16 +1,17 @@
 .side-bar{
     font-size: 18px;
     padding: 1rem;
-    max-width: 15rem;
+    max-width: 32rem;
+    min-height: 100%;
     background-color: #31304D;
-    height: 100%;
     border-radius: 1rem;
+    overflow: hidden;
 }
 
 .sidebar-logo {
-    font-size: 15px;
+    font-size: 18px;
     color: #B6BBC4;
-    margin: 1rem;
+    padding: 1rem;
 }
 
 .sidebar-icons{
@@ -18,7 +19,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: 1rem;
+    margin: 1.2rem;
     border: none;
     background-color: transparent;
     font-size: 1rem;
@@ -33,5 +34,5 @@
 .sidebar-icons:focus, .sidebar-icons:hover{
     background-color: #161A30;
     border-radius: 0.75rem;
-    padding-left: 8px;
+    margin: 15px;
 }

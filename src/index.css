@@ -3,3 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root{
+  --MainBackground: #161A30;
+  --SecondaryBackground: #31304D;
+  --FirstColor: #B6BBC4;
+  --SecondColor: #F0ECE5;
+}
