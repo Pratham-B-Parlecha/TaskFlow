@@ -1,25 +1,19 @@
 import "./App.scss";
-import Calender from "./Components/Calender/Calender";
-import DailyTaks from "./Components/DailyTasks/DailyTaks";
-import Projects from "./Components/Projects/Projects";
-import SideBar from "./Components/SideBar/SideBar";
-import WeeklyTasks from "./Components/WeeklyTasks/WeeklyTasks";
+import Card from "./Components/Card";
+import SideBar from "./Components/SideBar";
+
 
 function App() {
   return (
-    <div className="main-container">
+    <div className="mainContainer">
       <SideBar />
-      <div className="tasks-container">
-        <DailyTaks />
-        <WeeklyTasks />
-      </div>
-      <div className="projects">
-        <Projects />
-        <Projects />
-      </div>
-      <div className="calender">
-        <Calender />
-        <Calender />
+      <div className="grid">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </div>
     </div>
   );

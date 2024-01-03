@@ -1,0 +1,33 @@
+.sidebar-container{
+    width: 25rem;
+    background-color: var(--SecondaryBackground);
+    min-height: 100%;
+    border-radius: 1rem;
+    padding: 1.5rem;
+
+    .sidebar-logo{
+        font-weight: bold;
+        font-size: 1rem;
+        //margin-bottom: 1.2rem;
+    }
+    .sidebar-icon{
+        background-color: transparent;
+        border: none;
+        font-size: 1.2rem;
+        color: var(--FirstColor);
+        width: 12rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 1rem;
+        padding: 1.25rem;
+        margin: 2.5rem 0;
+
+        &:hover, &:focus{
+            background-color: var(--MainBackground);
+            border-radius: 1rem;
+            margin: 2.5rem 0;
+        }
+    }
+}
