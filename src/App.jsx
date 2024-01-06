@@ -1,6 +1,12 @@
 import "./App.scss";
+import Calender from "./Components/Calender";
 import Card from "./Components/Card";
+import DailyTasks from "./Components/DailyTasks";
+import OtherTasks from "./Components/OtherTasks";
+import Preformance from "./Components/Preformance";
+import Projects from "./Components/Projects";
 import SideBar from "./Components/SideBar";
+import WeeklyTasks from "./Components/WeeklyTasks";
 
 
 function App() {
@@ -8,12 +14,12 @@ function App() {
     <div className="mainContainer">
       <SideBar />
       <div className="grid">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Projects />
+        <DailyTasks />
+        <Calender />
+        <WeeklyTasks />
+        <Preformance />
+        <OtherTasks />
       </div>
     </div>
   );

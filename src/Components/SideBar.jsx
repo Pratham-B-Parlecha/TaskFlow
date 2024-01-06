@@ -1,6 +1,10 @@
 import React from "react";
 import "./SideBar.scss";
-import { SlGrid } from "react-icons/sl";
+import { CiGrid41 } from "react-icons/ci";
+import { BsListTask } from "react-icons/bs";
+import { IoBriefcaseOutline } from "react-icons/io5";
+import { CiSettings } from "react-icons/ci";
+import { GrTask } from "react-icons/gr";
 
 export default function SideBar() {
   return (
@@ -9,23 +13,23 @@ export default function SideBar() {
         <h1>Task Manager</h1>
       </div>
       <button className="sidebar-icon">
-        <SlGrid />
+        <CiGrid41 />
         <span>Home</span>
       </button>
       <button className="sidebar-icon">
-        <SlGrid />
+        <IoBriefcaseOutline />
         <span>Project</span>
       </button>
       <button className="sidebar-icon">
-        <SlGrid />
+        <GrTask />
         <span>weekly Task</span>
       </button>
       <button className="sidebar-icon">
-        <SlGrid />
+        <BsListTask />
         <span>Daily Task</span>
       </button>
       <button className="sidebar-icon">
-        <SlGrid />
+        <CiSettings />
         <span>Setting</span>
       </button>
     </div>

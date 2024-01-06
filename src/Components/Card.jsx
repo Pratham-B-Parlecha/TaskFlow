@@ -3,6 +3,6 @@ import './Card.scss';
 
 export default function Card({children, className}) {
   return (
-    <div className={`card ${className}`}>card</div>
+    <div className={`card ${className}`}>{children}</div>
   )
 }
