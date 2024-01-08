@@ -1,6 +1,5 @@
 import "./App.scss";
 import Calender from "./Components/Calender";
-import Card from "./Components/Card";
 import DailyTasks from "./Components/DailyTasks";
 import OtherTasks from "./Components/OtherTasks";
 import Preformance from "./Components/Preformance";
@@ -13,14 +12,14 @@ function App() {
   return (
     <div className="mainContainer">
       <SideBar />
-      <div className="grid">
+      {/* <div className="grid"> */}
         <Projects />
         <DailyTasks />
         <Calender />
         <WeeklyTasks />
         <Preformance />
         <OtherTasks />
-      </div>
+      {/* </div> */}
     </div>
   );
 }
