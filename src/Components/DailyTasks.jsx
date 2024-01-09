@@ -3,6 +3,6 @@ import Card from './Card'
 
 export default function DailyTasks() {
   return (
-    <Card>DailyTasks</Card>
+    <Card className='dailyTasks'>DailyTasks</Card>
   )
 }

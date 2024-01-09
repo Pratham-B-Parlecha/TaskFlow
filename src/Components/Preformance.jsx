@@ -3,6 +3,6 @@ import Card from './Card'
 
 export default function Preformance() {
   return (
-    <Card>Preformance</Card>
+    <Card className='performance'>Preformance</Card>
   )
 }

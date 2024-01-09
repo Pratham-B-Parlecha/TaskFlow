@@ -109,7 +109,7 @@ const newTheme = (theme) =>
 
 export default function Calender() {
   return (
-    <Card>
+    <Card className="calendar">
       <ThemeProvider theme={newTheme}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar />

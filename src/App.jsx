@@ -12,14 +12,12 @@ function App() {
   return (
     <div className="mainContainer">
       <SideBar />
-      {/* <div className="grid"> */}
         <Projects />
         <DailyTasks />
         <Calender />
         <WeeklyTasks />
         <Preformance />
         <OtherTasks />
-      {/* </div> */}
     </div>
   );
 }
