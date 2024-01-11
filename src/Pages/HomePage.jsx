@@ -11,7 +11,6 @@ import WeeklyTasks from "../Components/WeeklyTasks";
 export default function HomePage() {
   return (
     <div className="mainContainer">
-      <SideBar />
       <Projects />
       <DailyTasks />
       <Calender />

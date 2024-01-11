@@ -3,8 +3,6 @@ import SideBar from '../Components/SideBar'
 
 export default function DailyTasksPage() {
   return (
-    <div className='dailyTasksPage'>
-      {/* <SideBar /> */}
-    </div>
+    <div>DailyTasksPage</div>
   )
 }
