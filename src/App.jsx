@@ -1,24 +1,25 @@
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.scss";
-import Calender from "./Components/Calender";
-import DailyTasks from "./Components/DailyTasks";
-import OtherTasks from "./Components/OtherTasks";
-import Preformance from "./Components/Preformance";
-import Projects from "./Components/Projects";
-import SideBar from "./Components/SideBar";
-import WeeklyTasks from "./Components/WeeklyTasks";
+import HomePage from "./Pages/HomePage";
+import DailyTasksPage from "./Pages/DailyTasksPage";
+import WeeklyTasksPage from "./Pages/WeeklyTasksPage";
+import ProjectPage from "./Pages/ProjectPage";
+import SettingPage from "./Pages/SettingPage";
+
+
+
+const route = createBrowserRouter([
+  {path: "/", element: <HomePage />},
+  {path: "/dailyTasks", element: <DailyTasksPage />},
+  {path: "/weeklyTasks", element: <WeeklyTasksPage />},
+  {path: "/projects", element: <ProjectPage />},
+  {path: "/setting", element: <SettingPage />}
+])
 
 
 function App() {
   return (
-    <div className="mainContainer">
-      <SideBar />
-        <Projects />
-        <DailyTasks />
-        <Calender />
-        <WeeklyTasks />
-        <Preformance />
-        <OtherTasks />
-    </div>
+    <RouterProvider router={route} />
   );
 }
 
