@@ -1,20 +1,20 @@
 .mainContainer {
     padding: 1rem;
     background-color: var(--MainBackground);
-    max-height: 100vh;
+    height: 100vh;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 'sd dailyTasks projects calendar'
-        'sd weeklyTasks performance otherTasks';
+        'sd weeklyTasks performance performance';
     justify-content: center;
     align-items: center;
 
     .sidebar-container {
         width: 20rem;
         background-color: var(--SecondaryBackground);
-        min-height: 95%;
+        height: 97%;
         border-radius: 1rem;
         padding: 1.5rem;
         grid-area: sd;
@@ -38,7 +38,8 @@
             gap: 10px;
             border-radius: 1rem;
             padding: 0.5rem;
-            margin: 2.5rem 0;
+            margin: 1.5rem 0;
+            text-decoration: none;
 
             svg {
                 height: 26px;
@@ -49,7 +50,7 @@
             &:focus {
                 background-color: var(--MainBackground);
                 border-radius: 1rem;
-                margin: 2.5rem 0;
+                margin: 1.5rem 0;
             }
         }
     }
@@ -200,17 +201,6 @@
         }
     }
 
-    .otherTasks {
-        grid-area: otherTasks;
-        width: 22rem;
-        height: 20rem;
-        margin: 0.5rem 1rem 0 0;
-        padding: 1rem;
-        color: var(--FirstColor);
-        background-color: var(--SecondaryBackground);
-        border-radius: 1rem;
-    }
-
     .weeklyTasks {
         grid-area: weeklyTasks;
         width: 22rem;
@@ -280,7 +270,6 @@
 
     .performance {
         grid-area: performance;
-        width: 22rem;
         height: 20rem;
         margin: 0.5rem 1rem 0 0;
         padding: 1rem;
@@ -290,9 +279,98 @@
     }
 }
 
+.projectPage{
+    width: 75vw;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    grid-column: 2/-1;
+
+    
+
+    input{
+        width: 45vw;
+        height: 3rem;
+        border: none;
+        outline: none;
+        padding: 5px;
+        border-radius: 15px;
+        font-size: 25px;
+    }
+    button{
+        height: 3rem;
+        width: 3rem;
+        font-size: 15px;
+        border: none;
+        outline: none;
+        border-radius: 12px;
+    }
+}
 .dailyTasksPage{
-    padding: 1rem;
-    background-color: var(--MainBackground);
-    min-height: 100vh;
-    width: 100%;
+    width: 75vw;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    grid-column: 2/-1;
+
+    
+
+    input{
+        width: 45vw;
+        height: 3rem;
+        border: none;
+        outline: none;
+        padding: 5px;
+        border-radius: 15px;
+        font-size: 25px;
+    }
+    button{
+        height: 3rem;
+        width: 3rem;
+        font-size: 15px;
+        border: none;
+        outline: none;
+        border-radius: 12px;
+    }
+}
+.weeklyTasksPage{
+    width: 75vw;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    grid-column: 2/-1;
+
+    
+
+    input{
+        width: 45vw;
+        height: 3rem;
+        border: none;
+        outline: none;
+        padding: 5px;
+        border-radius: 15px;
+        font-size: 25px;
+    }
+    button{
+        height: 3rem;
+        width: 3rem;
+        font-size: 15px;
+        border: none;
+        outline: none;
+        border-radius: 12px;
+    }
+}
+
+
+.error{
+    color:var(--FirstColor);
+    text-align: center;
+    width: 100vw;
+    
+    h1{
+        padding: 5px;
+    }
+    p{
+        padding: 5px;
+    }
 }
