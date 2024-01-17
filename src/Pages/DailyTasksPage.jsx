@@ -1,7 +1,9 @@
 import React from "react";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 
 export default function DailyTasksPage() {
+  const data = useLoaderData();
+  console.log(data ? Object.values(data) : [])
   return (
     <>
       <Form method="post" className="dailyTasksPage">
@@ -14,7 +16,7 @@ export default function DailyTasksPage() {
 
 export async function action({request, params}) {
   const data = await request.formData();
-  const dailyData = {daily: data.get('dailytasks')} 
+  const dailyData = data.get('dailytasks')
   const response = await fetch("https://dashboard-24a01-default-rtdb.firebaseio.com/dailyTasks.json",{
     method: "POST",
     headers: {
@@ -23,4 +25,13 @@ export async function action({request, params}) {
     body: JSON.stringify(dailyData)
   })
   return redirect("/dailyTasks");
+}
+
+export async function loader() {
+  const response = await fetch("https://dashboard-24a01-default-rtdb.firebaseio.com/dailyTasks.json");
+
+  if(!response.ok){
+    throw json({message: "could not load data"});
+  }
+  return response;
 }

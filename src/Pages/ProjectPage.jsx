@@ -1,10 +1,12 @@
 import React from "react";
-import { Form, redirect } from "react-router-dom";
+import { Form, json, redirect, useLoaderData } from "react-router-dom";
 
 export default function ProjectPage() {
+  const data = useLoaderData();
+  console.log(data ? Object.values(data) : [])
   return (
     <>
-      <Form className="projectPage">
+      <Form method="post" className="projectPage">
         <input type="text" name="project" />
         <button>Add</button>
       </Form>
@@ -14,7 +16,7 @@ export default function ProjectPage() {
 
 export async function action({ request, params }) {
   const data = await request.formData();
-  const projectdata = { project: data.get("project") };
+  const projectdata = data.get("project");
   const response = await fetch(
     "https://dashboard-24a01-default-rtdb.firebaseio.com/project.json",
     {
@@ -26,4 +28,14 @@ export async function action({ request, params }) {
     }
   );
   return redirect("/projects");
+}
+
+
+export async function loader() {
+  const response = await fetch("https://dashboard-24a01-default-rtdb.firebaseio.com/project.json");
+
+  if(!response.ok){
+    throw json({message: "could not load data"});
+  }
+  return response;
 }
