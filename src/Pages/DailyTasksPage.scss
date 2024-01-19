@@ -1,0 +1,54 @@
+.dailyTasksPage {
+    width: 75vw;
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    grid-column: 2/-1;
+    padding: 30px;
+
+    .dailyTask {
+        display: flex;
+        gap: 10px;
+        padding-bottom: 50px;
+        input {
+            width: 45vw;
+            height: 3rem;
+            border: none;
+            outline: none;
+            padding: 5px;
+            border-radius: 15px;
+            font-size: 25px;
+        }
+
+        button {
+            height: 3rem;
+            width: 3rem;
+            font-size: 15px;
+            border: none;
+            outline: none;
+            border-radius: 12px;
+        }
+    }
+
+    .daily {
+        width: 50vw;
+        grid-column: 2/5;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        li {
+            list-style: none;
+            color: var(--FirstColor);
+            text-align: center;
+            height: 2rem;
+            font-size: 1.25rem;
+            padding: 20px;
+        }
+
+    }
+}

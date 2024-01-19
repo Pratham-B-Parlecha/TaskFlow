@@ -16,7 +16,6 @@ import ProjectPage, {
 import SettingPage from "./Pages/SettingPage";
 import RootLayout from "./Pages/RootLayout";
 import ErrorPage from "./Pages/ErrorPage";
-import { useState } from "react";
 
 const route = createBrowserRouter([
   {

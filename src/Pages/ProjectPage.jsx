@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import './ProjectPage.scss'
 import { Form, json, redirect, useLoaderData } from "react-router-dom";
 
 export default function ProjectPage() {
+  const [projectData, setProjectData] = useState([]);
   const data = useLoaderData();
-  console.log(data ? Object.values(data) : [])
+  useEffect(() => {
+    if(data){
+      const arrayData = Object.values(data);
+      setProjectData(arrayData);
+    }
+  },[data]);
+
+  console.log(projectData)
   return (
-    <>
-      <Form method="post" className="projectPage">
+    <div className="projectPage">
+      <Form method="post" className="project">
         <input type="text" name="project" />
         <button>Add</button>
       </Form>
-    </>
+      <ul className="projectList">
+        {projectData.map(daily => <li key={Math.random() * 100}>{daily}</li>)}
+      </ul>
+    </div>
   );
 }
 

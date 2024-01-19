@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import './DailyTasksPage.scss'
 import { Form, redirect, useLoaderData } from "react-router-dom";
 
 export default function DailyTasksPage() {
+  const [dailyData, setDailyData] = useState([]);
   const data = useLoaderData();
-  console.log(data ? Object.values(data) : [])
+  useEffect(() => {
+    if(data){
+      const arrayData = Object.values(data);
+      setDailyData(arrayData);
+    }
+  },[data]);
+  console.log(dailyData)
   return (
-    <>
-      <Form method="post" className="dailyTasksPage">
+    <div className="dailyTasksPage">
+      <Form method="post" className="dailyTask" >
         <input type="text" name="dailytasks" />
         <button>Add</button>
       </Form>
-    </>
+      <ul className="daily">
+        {dailyData.map(daily => <li key={Math.random() * 100}>{daily}</li>)}
+      </ul>
+    </div>
   );
 }
 

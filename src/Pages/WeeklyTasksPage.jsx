@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import './WeeklyTasksPage.scss'
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 
 export default function WeeklyTasksPage() {
+  const [weeklyData, setWeeklyData] = useState([]);
   const data = useLoaderData();
-  console.log(data ? Object.values(data) : [])
+  useEffect(() => {
+    if(data){
+      const arrayData = Object.values(data);
+      setWeeklyData(arrayData);
+    }
+  },[data]);
+
+  console.log(weeklyData);
   return (
-    <>
-      <Form method='post' className="weeklyTasksPage">
+    <div className='weeklyTasksPage'>
+      <Form method='post' className="weeklyTask">
         <input type="text" name="weeklytasks" />
         <button>Add</button>
       </Form>
-    </>
+      <ul className="weekly">
+        {weeklyData.map(daily => <li key={Math.random() * 100}>{daily}</li>)}
+      </ul>
+    </div>
   )
 }
 

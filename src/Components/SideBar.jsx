@@ -1,4 +1,5 @@
 import React from "react";
+import './SideBar.scss';
 import { CiGrid41 } from "react-icons/ci";
 import { BsListTask } from "react-icons/bs";
 import { IoBriefcaseOutline } from "react-icons/io5";
