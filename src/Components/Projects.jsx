@@ -16,7 +16,7 @@ export default function Projects() {
         {data.map((project) => (
           <li key={Math.random() * 100}>
             <input type="checkbox" className="rounded-checkbox" />
-            <label>{project}</label>
+            <label>{project.tasks}</label>
           </li>
         ))}
       </ul>

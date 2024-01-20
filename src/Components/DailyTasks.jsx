@@ -16,7 +16,7 @@ export default function DailyTasks() {
         {data.map((daily) => (
           <li key={Math.random() * 100}>
             <input type="checkbox" className="rounded-checkbox" />
-            <label>{daily}</label>
+            <label>{daily.tasks}</label>
           </li>
         ))}
       </ul>
