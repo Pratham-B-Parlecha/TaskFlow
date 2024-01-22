@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./WeeklyTasksPage.scss";
-import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { db } from "../Firebase";
 
@@ -15,25 +21,36 @@ export default function WeeklyTasksPage() {
       const dmc = sp.docs.map((doc) => doc.data());
       setValue(dmc);
     }
-    getData()
+    getData();
   }, [value]);
-  async function submitHandler(event) {
+  async function submitHandler(id, event) {
     event.preventDefault();
-    await setDoc(doc(db, "weeklyTasks", uuid()), {
-      id: uuid(),
+    await setDoc(doc(db, "weeklyTasks", id), {
+      id: id,
       tasks: inputRef.current.value,
     });
     inputRef.current.value = "";
   }
+  async function deleteHandler(id) {
+    await deleteDoc(doc(db, "weeklyTasks", id));
+  }
   return (
     <div className="weeklyTasksPage">
-      <form onSubmit={submitHandler} className="weeklyTask">
+      <form
+        onSubmit={(event) => submitHandler(uuid(), event)}
+        className="weeklyTask"
+      >
         <input type="text" name="weeklytasks" ref={inputRef} />
-        <button type="button" onClick={submitHandler}>Add</button>
+        <button type="button" onClick={(event) => submitHandler(uuid(), event)}>
+          Add
+        </button>
       </form>
       <ul className="weekly">
-        {value.map((daily) => (
-          <li key={daily.id}>{daily.tasks}</li>
+        {value.map((weekly) => (
+          <li key={weekly.id}>
+            <span>{weekly.tasks}</span>
+            <button onClick={() => deleteHandler(weekly.id)}>Delete</button>
+          </li>
         ))}
       </ul>
     </div>

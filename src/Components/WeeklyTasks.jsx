@@ -13,7 +13,7 @@ export default function WeeklyTasks() {
       setValue(dmc);
     }
     getData();
-  }, [value]);
+  }, []);
   return (
     <Card className="weeklyTasks">
       <h3>WeeklyTasks</h3>
@@ -21,7 +21,11 @@ export default function WeeklyTasks() {
         {value.length === 0 && <li>Add Tasks to be done</li>}
         {value.map((weekly) => (
           <li key={weekly.id}>
-            <input type="checkbox" id={weekly.id} className="rounded-checkbox" />
+            <input
+              type="checkbox"
+              id={weekly.id}
+              className="rounded-checkbox"
+            />
             <label htmlFor={weekly.id}>{weekly.tasks}</label>
           </li>
         ))}

@@ -14,7 +14,7 @@ export default function DailyTasks() {
       setValue(dmc);
     }
     getData();
-  }, [value]);
+  }, []);
   return (
     <Card className="dailyTasks">
       <h3>DailyTasks</h3>

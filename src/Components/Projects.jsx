@@ -14,7 +14,7 @@ export default function Projects() {
       setValue(dmc);
     }
     getData();
-  }, [value]);
+  }, []);
   return (
     <Card className="projects">
       <h3>Projects</h3>
@@ -22,7 +22,11 @@ export default function Projects() {
         {value.length === 0 && <li>Add Tasks to be done</li>}
         {value.map((project) => (
           <li key={project.id}>
-            <input type="checkbox" id={project.id} className="rounded-checkbox" />
+            <input
+              type="checkbox"
+              id={project.id}
+              className="rounded-checkbox"
+            />
             <label htmlFor={project.id}>{project.tasks}</label>
           </li>
         ))}
