@@ -7,16 +7,16 @@ import { v4 as uuid } from "uuid";
 export default function DailyTasksPage() {
   const inputRef = useRef();
   const [value, setValue] = useState([]);
+
   useEffect(() => {
-     async function getData() {
-      const colRef = collection(db, "dailyTasks");
-      const sp = await getDocs(colRef);
+    async function getData() {
+      const sp = await getDocs(collection(db, "dailyTasks"));
 
       const dmc = sp.docs.map((doc) => doc.data());
       setValue(dmc);
     }
     getData();
-  }, []);
+  }, [value]);
   async function submitHandler(event) {
     event.preventDefault();
     await setDoc(doc(db, "dailyTasks", uuid()), {

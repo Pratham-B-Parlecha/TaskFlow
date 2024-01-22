@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./DailyTasks.scss";
-import useHttp from "../Hooks/use-http";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Firebase";
 
 export default function DailyTasks() {
-  const { data, error, isLoading } = useHttp(
-    "https://dashboard-24a01-default-rtdb.firebaseio.com/dailyTasks.json"
-  );
+  const [value, setValue] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      const sp = await getDocs(collection(db, "dailyTasks"));
+
+      const dmc = sp.docs.map((doc) => doc.data());
+      setValue(dmc);
+    }
+    getData();
+  }, [value]);
   return (
     <Card className="dailyTasks">
       <h3>DailyTasks</h3>
-      {error && <h1>{error}</h1>}
       <ul className="dialy-tasks-list">
-        {data.length === 0 && <li>Add Tasks to be done</li>}
-        {data.map((daily) => (
-          <li key={Math.random() * 100}>
-            <input type="checkbox" className="rounded-checkbox" />
-            <label>{daily.tasks}</label>
+        {value.length === 0 && <li>Add Tasks to be done</li>}
+        {value.map((daily) => (
+          <li key={daily.id}>
+            <input type="checkbox" id={daily.id} className="rounded-checkbox" />
+            <label htmlFor={daily.id}>{daily.tasks}</label>
           </li>
         ))}
       </ul>

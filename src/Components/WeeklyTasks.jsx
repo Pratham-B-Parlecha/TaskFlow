@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./WeeklyTasks.scss";
-import useHttp from "../Hooks/use-http";
-
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Firebase";
 export default function WeeklyTasks() {
-  const { data, error, isLoading } = useHttp(
-    "https://dashboard-24a01-default-rtdb.firebaseio.com/weeklyTasks.json"
-  );
+  const [value, setValue] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      const sp = await getDocs(collection(db, "weeklyTasks"));
+
+      const dmc = sp.docs.map((doc) => doc.data());
+      setValue(dmc);
+    }
+    getData();
+  }, [value]);
   return (
     <Card className="weeklyTasks">
       <h3>WeeklyTasks</h3>
-      {error && <h1>{error}</h1>}
       <ul className="weekly-tasks-list">
-        {data.length === 0 && <li>Add Tasks to be done</li>}
-        {data.map((weekly) => (
-          <li key={Math.random() * 100}>
-            <input type="checkbox" className="rounded-checkbox" />
-            <label>{weekly.tasks}</label>
+        {value.length === 0 && <li>Add Tasks to be done</li>}
+        {value.map((weekly) => (
+          <li key={weekly.id}>
+            <input type="checkbox" id={weekly.id} className="rounded-checkbox" />
+            <label htmlFor={weekly.id}>{weekly.tasks}</label>
           </li>
         ))}
       </ul>
