@@ -23,8 +23,8 @@ export default function DailyTasksPage() {
     }
     getData();
   }, [value]);
-  async function submitHandler(id, event) {
-    event.preventDefault();
+  async function submitHandler() {
+    const id = uuid();
     await setDoc(doc(db, "dailyTasks", id), {
       id: id,
       tasks: inputRef.current.value,
@@ -36,12 +36,9 @@ export default function DailyTasksPage() {
   }
   return (
     <div className="dailyTasksPage">
-      <form
-        onSubmit={(event) => submitHandler(uuid(), event)}
-        className="dailyTask"
-      >
+      <form onSubmit={submitHandler} className="dailyTask">
         <input type="text" name="dailytasks" ref={inputRef} />
-        <button type="button" onClick={(event) => submitHandler(uuid(), event)}>
+        <button type="button" onClick={submitHandler}>
           Add
         </button>
       </form>

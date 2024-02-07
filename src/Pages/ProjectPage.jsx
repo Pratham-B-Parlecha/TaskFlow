@@ -22,8 +22,8 @@ export default function ProjectPage() {
     }
     getData();
   }, [value]);
-  async function submitHandler(id, event) {
-    event.preventDefault();
+  async function submitHandler() {
+    const id = uuid();
     await setDoc(doc(db, "projects", id), {
       id: id,
       tasks: inputRef.current.value,
@@ -37,12 +37,9 @@ export default function ProjectPage() {
 
   return (
     <div className="projectPage">
-      <form
-        onSubmit={(event) => submitHandler(uuid(), event)}
-        className="project"
-      >
+      <form onSubmit={submitHandler} className="project">
         <input type="text" name="project" ref={inputRef} />
-        <button type="button" onClick={(event) => submitHandler(uuid(), event)}>
+        <button type="button" onClick={submitHandler}>
           Add
         </button>
       </form>
