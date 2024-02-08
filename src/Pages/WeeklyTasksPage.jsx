@@ -10,7 +10,8 @@ import {
 import { v4 as uuid } from "uuid";
 import { db } from "../Firebase";
 
-export default function WeeklyTasksPage() {
+
+export default function WeeklyTasksPage({arrLen2}) {
   const inputRef = useRef();
   const [value, setValue] = useState([]);
 
@@ -19,27 +20,34 @@ export default function WeeklyTasksPage() {
       const sp = await getDocs(collection(db, "weeklyTasks"));
 
       const dmc = sp.docs.map((doc) => doc.data());
+      arrLen2(dmc)
       setValue(dmc);
     }
     getData();
-  }, [value]);
+  }, []);
+  async function getData() {
+    const sp = await getDocs(collection(db, "weeklyTasks"));
+
+    const dmc = sp.docs.map((doc) => doc.data());
+    arrLen2(dmc)
+    setValue(dmc);
+  }
   async function submitHandler() {
-    const id = uuid()
+    const id = uuid();
     await setDoc(doc(db, "weeklyTasks", id), {
       id: id,
       tasks: inputRef.current.value,
     });
+    getData();
     inputRef.current.value = "";
   }
   async function deleteHandler(id) {
     await deleteDoc(doc(db, "weeklyTasks", id));
+    getData();
   }
   return (
     <div className="weeklyTasksPage">
-      <form
-        onSubmit={submitHandler}
-        className="weeklyTask"
-      >
+      <form onSubmit={submitHandler} className="weeklyTask">
         <input type="text" name="weeklytasks" ref={inputRef} />
         <button type="button" onClick={submitHandler}>
           Add

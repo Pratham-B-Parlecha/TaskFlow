@@ -10,29 +10,41 @@ import {
 import { db } from "../Firebase";
 import { v4 as uuid } from "uuid";
 
-export default function DailyTasksPage() {
+
+export default function DailyTasksPage({arrLen1}) {
   const inputRef = useRef();
   const [value, setValue] = useState([]);
-
   useEffect(() => {
     async function getData() {
       const sp = await getDocs(collection(db, "dailyTasks"));
 
       const dmc = sp.docs.map((doc) => doc.data());
+      arrLen1(dmc)
       setValue(dmc);
+      
     }
     getData();
-  }, [value]);
+  }, []);
+  async function getData() {
+    const sp = await getDocs(collection(db, "dailyTasks"));
+
+    const dmc = sp.docs.map((doc) => doc.data());
+    arrLen1(dmc)
+    setValue(dmc);
+  }
   async function submitHandler() {
     const id = uuid();
     await setDoc(doc(db, "dailyTasks", id), {
       id: id,
       tasks: inputRef.current.value,
     });
+    getData();
+    
     inputRef.current.value = "";
   }
   async function deleteHandler(id) {
     await deleteDoc(doc(db, "dailyTasks", id));
+    getData();
   }
   return (
     <div className="dailyTasksPage">

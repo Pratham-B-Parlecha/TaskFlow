@@ -6,9 +6,11 @@ import {
   collection,
   getDocs,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { db } from "../Firebase";
+
 
 export default function ProjectPage() {
   const [value, setValue] = useState([]);
@@ -21,18 +23,26 @@ export default function ProjectPage() {
       setValue(dmc);
     }
     getData();
-  }, [value]);
+  }, []);
+  async function getData() {
+    const sp = await getDocs(collection(db, "projects"));
+
+    const dmc = sp.docs.map((doc) => doc.data());
+    setValue(dmc);
+  }
   async function submitHandler() {
     const id = uuid();
     await setDoc(doc(db, "projects", id), {
       id: id,
       tasks: inputRef.current.value,
     });
+    getData();
     inputRef.current.value = "";
   }
 
   async function deleteHandler(id) {
     await deleteDoc(doc(db, "projects", id));
+    getData();
   }
 
   return (

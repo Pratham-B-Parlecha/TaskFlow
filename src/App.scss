@@ -10,6 +10,10 @@
         'sd weeklyTasks performance performance';
     justify-content: center;
     align-items: center;
+    background-image: url("assets/animation.gif");
+  /* Other background properties */
+  background-size: cover; /* Adjust as needed */
+  background-repeat: repeat; /* Prevent repetition */
 }
 
 
