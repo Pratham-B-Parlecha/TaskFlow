@@ -11,7 +11,7 @@ import { db } from "../Firebase";
 import { v4 as uuid } from "uuid";
 
 
-export default function DailyTasksPage({arrLen1}) {
+export default function DailyTasksPage() {
   const inputRef = useRef();
   const [value, setValue] = useState([]);
   useEffect(() => {
@@ -19,7 +19,6 @@ export default function DailyTasksPage({arrLen1}) {
       const sp = await getDocs(collection(db, "dailyTasks"));
 
       const dmc = sp.docs.map((doc) => doc.data());
-      arrLen1(dmc)
       setValue(dmc);
       
     }
@@ -28,12 +27,15 @@ export default function DailyTasksPage({arrLen1}) {
   async function getData() {
     const sp = await getDocs(collection(db, "dailyTasks"));
 
-    const dmc = sp.docs.map((doc) => doc.data());
-    arrLen1(dmc)
+    const dmc = sp.docs.map((doc) => doc.data())
     setValue(dmc);
   }
-  async function submitHandler() {
+  async function submitHandler(event) {
+    event.preventDefault();
     const id = uuid();
+    if(inputRef.current.value === ""){
+      return;
+    }
     await setDoc(doc(db, "dailyTasks", id), {
       id: id,
       tasks: inputRef.current.value,

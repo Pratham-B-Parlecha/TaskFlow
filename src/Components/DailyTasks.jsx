@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./DailyTasks.scss";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 
 export default function DailyTasks() {
   const [value, setValue] = useState([]);
+  const [dailyTasksDone, setDailyTasksDone] = useState( JSON.parse(localStorage.getItem('dailyTasksValue'))|| {});
   useEffect(() => {
     async function getData() {
       const sp = await getDocs(collection(db, "dailyTasks"));
@@ -15,6 +16,34 @@ export default function DailyTasks() {
     }
     getData();
   }, []);
+  useEffect(() => {
+    localStorage.setItem('dailyTasksValue', JSON.stringify(dailyTasksDone))
+    if(value.length === 0){
+      localStorage.setItem('dailyTasksValue', JSON.stringify({}))
+      return;
+    }
+  }, [dailyTasksDone, value])
+
+  async function getData() {
+    const sp = await getDocs(collection(db, "dailyTasks"));
+
+    const dmc = sp.docs.map((doc) => doc.data());
+    setValue(dmc);
+  }
+  async function deleteHandler(id) {
+    await deleteDoc(doc(db, "dailyTasks", id));
+    getData();
+  }
+  function handleDoneTask(id) {
+    console.log(id)
+    if(value.length === 0){
+      setDailyTasksDone({})
+    }
+    setDailyTasksDone(prev => ({
+      ...prev,
+      [id]: true
+    }));
+  }
   return (
     <Card className="dailyTasks">
       <h3>DailyTasks</h3>
@@ -22,8 +51,13 @@ export default function DailyTasks() {
         {value.length === 0 && <li>Add Tasks to be done</li>}
         {value.map((daily) => (
           <li key={daily.id}>
-            <input type="checkbox" id={daily.id} className="rounded-checkbox" />
-            <label htmlFor={daily.id}>{daily.tasks}</label>
+            <span style={{textDecoration: dailyTasksDone[daily.id] === true ? 'line-through': ''}}>{daily.tasks}</span>
+            <div className="actions-button">
+              <button onClick={() => deleteHandler(daily.id)}>x</button>
+              <button className="done" onClick={() => handleDoneTask(daily.id)}>
+                x
+              </button>
+            </div>
           </li>
         ))}
       </ul>

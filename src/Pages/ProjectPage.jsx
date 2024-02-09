@@ -6,11 +6,9 @@ import {
   collection,
   getDocs,
   deleteDoc,
-  updateDoc,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { db } from "../Firebase";
-
 
 export default function ProjectPage() {
   const [value, setValue] = useState([]);
@@ -20,6 +18,7 @@ export default function ProjectPage() {
       const sp = await getDocs(collection(db, "projects"));
 
       const dmc = sp.docs.map((doc) => doc.data());
+
       setValue(dmc);
     }
     getData();
@@ -30,8 +29,12 @@ export default function ProjectPage() {
     const dmc = sp.docs.map((doc) => doc.data());
     setValue(dmc);
   }
-  async function submitHandler() {
+  async function submitHandler(event) {
+    event.preventDefault();
     const id = uuid();
+    if(inputRef.current.value === ""){
+      return;
+    }
     await setDoc(doc(db, "projects", id), {
       id: id,
       tasks: inputRef.current.value,

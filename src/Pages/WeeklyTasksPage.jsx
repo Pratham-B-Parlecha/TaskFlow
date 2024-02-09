@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 import { db } from "../Firebase";
 
 
-export default function WeeklyTasksPage({arrLen2}) {
+export default function WeeklyTasksPage() {
   const inputRef = useRef();
   const [value, setValue] = useState([]);
 
@@ -20,7 +20,7 @@ export default function WeeklyTasksPage({arrLen2}) {
       const sp = await getDocs(collection(db, "weeklyTasks"));
 
       const dmc = sp.docs.map((doc) => doc.data());
-      arrLen2(dmc)
+
       setValue(dmc);
     }
     getData();
@@ -29,11 +29,14 @@ export default function WeeklyTasksPage({arrLen2}) {
     const sp = await getDocs(collection(db, "weeklyTasks"));
 
     const dmc = sp.docs.map((doc) => doc.data());
-    arrLen2(dmc)
     setValue(dmc);
   }
-  async function submitHandler() {
+  async function submitHandler(event) {
+    event.preventDefault();
     const id = uuid();
+    if(inputRef.current.value === ""){
+      return;
+    }
     await setDoc(doc(db, "weeklyTasks", id), {
       id: id,
       tasks: inputRef.current.value,

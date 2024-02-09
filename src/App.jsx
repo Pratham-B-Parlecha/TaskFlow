@@ -9,18 +9,6 @@ import SettingPage from "./Pages/SettingPage";
 import RootLayout from "./Pages/RootLayout";
 import ErrorPage from "./Pages/ErrorPage";
 
-let len1; let len2;let len3;
-function ArrayLength1(arr) {
-  len1 = arr.length
-  console.log(len1)
-}
-function ArrayLength2(arr) {
-  len2 = arr.length
-  console.log(len2)
-}
-function ArrayLength3(arr) {
-  len3 = arr.length
-}
 
 const route = createBrowserRouter([
   {
@@ -31,15 +19,15 @@ const route = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       {
         path: "/dailyTasks",
-        element: <DailyTasksPage arrLen1={ArrayLength1} />,
+        element: <DailyTasksPage />,
       },
       {
         path: "/weeklyTasks",
-        element: <WeeklyTasksPage arrLen2={ArrayLength2} />,
+        element: <WeeklyTasksPage />,
       },
       {
         path: "/projects",
-        element: <ProjectPage arrLen3={ArrayLength3} />,
+        element: <ProjectPage />,
       },
       { path: "/setting", element: <SettingPage /> },
     ],

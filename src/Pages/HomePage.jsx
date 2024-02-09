@@ -7,7 +7,6 @@ import Projects from "../Components/Projects";
 import WeeklyTasks from "../Components/WeeklyTasks";
 
 export default function HomePage() {
-
   return (
     <>
       <Projects />

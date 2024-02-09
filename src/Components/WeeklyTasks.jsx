@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./WeeklyTasks.scss";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
+
 export default function WeeklyTasks() {
   const [value, setValue] = useState([]);
+  const [weeklyTasksDone, setWeeklyTasksDone] = useState(
+    JSON.parse(localStorage.getItem("weeklyTasksValue")) || {}
+  );
   useEffect(() => {
     async function getData() {
       const sp = await getDocs(collection(db, "weeklyTasks"));
@@ -14,6 +18,34 @@ export default function WeeklyTasks() {
     }
     getData();
   }, []);
+  useEffect(() => {
+    localStorage.setItem("weeklyTasksValue", JSON.stringify(weeklyTasksDone));
+    if (value.length === 0) {
+      localStorage.setItem("weeklyTasksValue", JSON.stringify({}));
+      return;
+    }
+  }, [weeklyTasksDone, value]);
+
+  async function getData() {
+    const sp = await getDocs(collection(db, "weeklyTasks"));
+
+    const dmc = sp.docs.map((doc) => doc.data());
+    setValue(dmc);
+  }
+  async function deleteHandler(id) {
+    await deleteDoc(doc(db, "weeklyTasks", id));
+    getData();
+  }
+  function handleDoneTask(id) {
+    console.log(id);
+    if (value.length === 0) {
+      setWeeklyTasksDone({});
+    }
+    setWeeklyTasksDone((prev) => ({
+      ...prev,
+      [id]: true,
+    }));
+  }
   return (
     <Card className="weeklyTasks">
       <h3>WeeklyTasks</h3>
@@ -21,12 +53,23 @@ export default function WeeklyTasks() {
         {value.length === 0 && <li>Add Tasks to be done</li>}
         {value.map((weekly) => (
           <li key={weekly.id}>
-            <input
-              type="checkbox"
-              id={weekly.id}
-              className="rounded-checkbox"
-            />
-            <label htmlFor={weekly.id}>{weekly.tasks}</label>
+            <span
+              style={{
+                textDecoration:
+                  weeklyTasksDone[weekly.id] === true ? "line-through" : "",
+              }}
+            >
+              {weekly.tasks}
+            </span>
+            <div className="actions-button">
+              <button onClick={() => deleteHandler(weekly.id)}>x</button>
+              <button
+                className="done"
+                onClick={() => handleDoneTask(weekly.id)}
+              >
+                x
+              </button>
+            </div>
           </li>
         ))}
       </ul>
