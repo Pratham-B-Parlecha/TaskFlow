@@ -20,11 +20,7 @@ export default function Projects() {
   }, []);
   useEffect(() => {
     localStorage.setItem("projectTasksDone", JSON.stringify(projectTaskDone));
-    if (value.length === 0) {
-      localStorage.setItem("projectTasksDone", JSON.stringify({}));
-      return;
-    }
-  }, [projectTaskDone, value]);
+  }, [projectTaskDone]);
 
   async function getData() {
     const sp = await getDocs(collection(db, "projects"));
@@ -35,6 +31,11 @@ export default function Projects() {
   async function deleteHandler(id) {
     await deleteDoc(doc(db, "projects", id));
     getData();
+    if (projectTaskDone[id]) {
+      const updatedTasks = { ...projectTaskDone };
+      delete updatedTasks[id];
+      setProjectTasksDone(updatedTasks);
+    }
   }
   function handleDoneTask(id) {
     console.log(id);

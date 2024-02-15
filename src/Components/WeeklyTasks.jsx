@@ -20,11 +20,7 @@ export default function WeeklyTasks() {
   }, []);
   useEffect(() => {
     localStorage.setItem("weeklyTasksValue", JSON.stringify(weeklyTasksDone));
-    if (value.length === 0) {
-      localStorage.setItem("weeklyTasksValue", JSON.stringify({}));
-      return;
-    }
-  }, [weeklyTasksDone, value]);
+  }, [weeklyTasksDone]);
 
   async function getData() {
     const sp = await getDocs(collection(db, "weeklyTasks"));
@@ -35,6 +31,11 @@ export default function WeeklyTasks() {
   async function deleteHandler(id) {
     await deleteDoc(doc(db, "weeklyTasks", id));
     getData();
+    if (weeklyTasksDone[id]) {
+      const updatedTasks = { ...weeklyTasksDone };
+      delete updatedTasks[id];
+      setWeeklyTasksDone(updatedTasks);
+    }
   }
   function handleDoneTask(id) {
     console.log(id);

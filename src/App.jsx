@@ -5,10 +5,8 @@ import HomePage from "./Pages/HomePage";
 import DailyTasksPage from "./Pages/DailyTasksPage";
 import WeeklyTasksPage from "./Pages/WeeklyTasksPage";
 import ProjectPage from "./Pages/ProjectPage";
-import SettingPage from "./Pages/SettingPage";
 import RootLayout from "./Pages/RootLayout";
 import ErrorPage from "./Pages/ErrorPage";
-
 
 const route = createBrowserRouter([
   {
@@ -29,7 +27,6 @@ const route = createBrowserRouter([
         path: "/projects",
         element: <ProjectPage />,
       },
-      { path: "/setting", element: <SettingPage /> },
     ],
   },
 ]);

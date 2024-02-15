@@ -10,10 +10,12 @@ import {
 import { v4 as uuid } from "uuid";
 import { db } from "../Firebase";
 
-
 export default function WeeklyTasksPage() {
   const inputRef = useRef();
   const [value, setValue] = useState([]);
+  const [weeklyTasksDone, setWeeklyTasksDone] = useState(
+    JSON.parse(localStorage.getItem("weeklyTasksValue")) || {}
+  );
 
   useEffect(() => {
     async function getData() {
@@ -25,6 +27,10 @@ export default function WeeklyTasksPage() {
     }
     getData();
   }, []);
+  useEffect(() => {
+    localStorage.setItem("weeklyTasksValue", JSON.stringify(weeklyTasksDone));
+  }, [weeklyTasksDone]);
+
   async function getData() {
     const sp = await getDocs(collection(db, "weeklyTasks"));
 
@@ -34,7 +40,7 @@ export default function WeeklyTasksPage() {
   async function submitHandler(event) {
     event.preventDefault();
     const id = uuid();
-    if(inputRef.current.value === ""){
+    if (inputRef.current.value === "") {
       return;
     }
     await setDoc(doc(db, "weeklyTasks", id), {
@@ -51,7 +57,7 @@ export default function WeeklyTasksPage() {
   return (
     <div className="weeklyTasksPage">
       <form onSubmit={submitHandler} className="weeklyTask">
-        <input type="text" name="weeklytasks" ref={inputRef} />
+        <input type="text" name="weeklytasks" ref={inputRef} placeholder="Add Your WeeklyTasks" />
         <button type="button" onClick={submitHandler}>
           Add
         </button>
@@ -59,7 +65,14 @@ export default function WeeklyTasksPage() {
       <ul className="weekly">
         {value.map((weekly) => (
           <li key={weekly.id}>
-            <span>{weekly.tasks}</span>
+            <span
+              style={{
+                textDecoration:
+                  weeklyTasksDone[weekly.id] === true ? "line-through" : "",
+              }}
+            >
+              {weekly.tasks}
+            </span>
             <button onClick={() => deleteHandler(weekly.id)}>Delete</button>
           </li>
         ))}

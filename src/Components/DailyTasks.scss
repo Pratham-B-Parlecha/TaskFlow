@@ -79,9 +79,11 @@
             button {
                 border: none;
                 outline: none;
-                width: 13px;
+                width: 1.25rem;
+                //padding: 0.25rem;
+                height: 1.25rem;
                 border-radius: 50%;
-                background-color: rgba(255, 0, 0, 0.7);
+                background-color: rgb(190, 114, 220);
                 color: transparent;
                 opacity: 0.3;
             }
@@ -89,9 +91,11 @@
             .done {
                 border: none;
                 outline: none;
-                width: 13px;
+                width: 1.25rem;
+                //padding: 0.25rem;
+                height: 1.25rem;
                 border-radius: 50%;
-                background-color: rgba(0, 255, 0, 0.7);
+                background-color: rgba(0, 255, 0, 0.859);
                 color: transparent;
                 opacity: 0.3;
             }

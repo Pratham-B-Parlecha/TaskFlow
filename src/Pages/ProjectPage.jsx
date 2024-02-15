@@ -13,6 +13,9 @@ import { db } from "../Firebase";
 export default function ProjectPage() {
   const [value, setValue] = useState([]);
   const inputRef = useRef();
+  const [projectTaskDone, setProjectTasksDone] = useState(
+    JSON.parse(localStorage.getItem("projectTasksDone")) || {}
+  );
   useEffect(() => {
     async function getData() {
       const sp = await getDocs(collection(db, "projects"));
@@ -23,6 +26,9 @@ export default function ProjectPage() {
     }
     getData();
   }, []);
+  useEffect(() => {
+    localStorage.setItem("projectTasksDone", JSON.stringify(projectTaskDone));
+  }, [projectTaskDone]);
   async function getData() {
     const sp = await getDocs(collection(db, "projects"));
 
@@ -32,7 +38,7 @@ export default function ProjectPage() {
   async function submitHandler(event) {
     event.preventDefault();
     const id = uuid();
-    if(inputRef.current.value === ""){
+    if (inputRef.current.value === "") {
       return;
     }
     await setDoc(doc(db, "projects", id), {
@@ -51,16 +57,23 @@ export default function ProjectPage() {
   return (
     <div className="projectPage">
       <form onSubmit={submitHandler} className="project">
-        <input type="text" name="project" ref={inputRef} />
+        <input type="text" name="project" ref={inputRef} placeholder="Add Your Projects" />
         <button type="button" onClick={submitHandler}>
           Add
         </button>
       </form>
       <ul className="projectList">
-        {value.map((daily) => (
-          <li key={daily.id}>
-            <span>{daily.tasks}</span>
-            <button onClick={() => deleteHandler(daily.id)}>Delete</button>
+        {value.map((project) => (
+          <li key={project.id}>
+            <span
+              style={{
+                textDecoration:
+                  projectTaskDone[project.id] === true ? "line-through" : "",
+              }}
+            >
+              {project.tasks}
+            </span>
+            <button onClick={() => deleteHandler(project.id)}>Delete</button>
           </li>
         ))}
       </ul>
