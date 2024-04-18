@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
+
 import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: process.env.VITE_apiKey,
   authDomain: process.env.VITE_authDomain,
@@ -9,5 +11,8 @@ const firebaseConfig = {
   appId: process.env.VITE_appId,
 };
 
-export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig, {
+  experimentalForceLongPolling: true, // this line
+  useFetchStreams: false, // and this line
+});
 export const db = getFirestore();
