@@ -11,5 +11,8 @@ const firebaseConfig = {
   appId: process.env.VITE_appId,
 };
 
-export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig, {
+  experimentalForceLongPolling: true, // this line
+  useFetchStreams: false, // and this line
+});
 export const db = getFirestore();

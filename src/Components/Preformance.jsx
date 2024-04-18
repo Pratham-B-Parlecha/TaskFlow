@@ -34,7 +34,7 @@ export default function Preformance() {
       }));
     }
     fetchDataFromFirebase();
-  }, [counter.len1, counter.len2, counter.len3]);
+  }, []);
 
   useEffect(() => {
     const localStorageValue1 = JSON.parse(
@@ -52,7 +52,7 @@ export default function Preformance() {
       lenDone2: Object.keys(localStorageValue2).length,
       lenDone3: Object.keys(localStorageValue3).length,
     }));
-  }, [countDone.lenDone1, countDone.lenDone2, countDone.lenDone3]);
+  }, []);
   const { len1, len2, len3 } = counter;
   const { lenDone1, lenDone2, lenDone3 } = countDone;
   return (
