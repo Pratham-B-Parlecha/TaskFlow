@@ -53,7 +53,6 @@ export default function Preformance() {
       lenDone3: Object.keys(localStorageValue3).length,
     }));
   }, [countDone.lenDone1, countDone.lenDone2, countDone.lenDone3]);
-  console.log(countDone);
   const { len1, len2, len3 } = counter;
   const { lenDone1, lenDone2, lenDone3 } = countDone;
   return (
